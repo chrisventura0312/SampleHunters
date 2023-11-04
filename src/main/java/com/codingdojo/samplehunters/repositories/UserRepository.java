@@ -18,6 +18,4 @@ Optional<User> findByEmail(String email);
 
 boolean existsByEmail(String email);
 
-boolean findByIsPresent(boolean isPresent);
-
 }

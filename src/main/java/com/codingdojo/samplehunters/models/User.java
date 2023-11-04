@@ -31,42 +31,43 @@ import com.codingdojo.samplehunters.models.Sample;
 
     
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    @NotEmpty(message="Username is required!")
-    @Size(min=3, max=30, message="Username must be between 3 and 30 characters")
-    private String userName;
-    
-    @NotEmpty(message="Email is required!")
-    @Email(message="Please enter a valid email!")
+
+    @NotEmpty(message = "Email is required!")
+    @Email(message = "Please enter a valid email!")
+    @Column(name = "email")
     private String email;
-    
-    @NotEmpty(message="Password is required!")
-    @Size(min=8, max=128, message="Password must be between 8 and 128 characters")
+
+    @NotEmpty(message = "Username is required!")
+    @Size(min = 3, max = 20, message = "Username must be between 3 and 20 characters")
+    @Column(name = "userName")
+    private String userName;
+
+    @NotEmpty(message = "Password is required!")
+    @Size(min = 8, max = 128, message = "Password must be between 8 and 128 characters")
+    @Column(name = "password")
     private String password;
-    
+
     @Transient
-    @NotEmpty(message="Confirm Password is required!")
-    @Size(min=8, max=128, message="Confirm Password must be between 8 and 128 characters")
+    @NotEmpty(message = "Confirm Password is required!")
+    @Size(min = 8, max = 128, message = "Confirm Password must be between 8 and 128 characters")
     private String confirm;
 
-    @Column(updatable=false)
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @Column(updatable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createdAt;
 
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date updatedAt;
 
-    @OneToMany(mappedBy="user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Sample> samples;
 
-    boolean isPresent;
-    
     
     //Constructors
     public User() {}
