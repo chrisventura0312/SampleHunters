@@ -102,6 +102,9 @@ public class SampleHunterControllers {
 
     @GetMapping("/addSample")
     public String addSample(HttpSession session, Model model) {
+        if (session.getAttribute("user_id") == null) {
+            return "redirect:/login";
+        }
         Long userId = (Long) session.getAttribute("user_id");
         User user = userService.findById(userId);
         model.addAttribute("user", user);
