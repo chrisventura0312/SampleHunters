@@ -9,10 +9,12 @@
     <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/show.css" />
     <title>${sample.sampleName}</title>
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/SNice.svg/800px-SNice.svg.png"
+    type="image/png" >
 </head>
 <body>
     <nav class="navbar navbar-expand-lg">
-        <a class="navbar-brand" href="/home">Sample Hunters</a>
+        <a class="navbar-brand" href="/">Sample Hunters</a>
         <div class="navbar-right" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
@@ -39,16 +41,16 @@
         </div>
     </nav>
     <div class="container mt-4">
-        <div id="content" class="mt-">
+        <div id="content" class="mt-2">
             <div class="row">
-                <div class="col-md-6 mb-4">
-                    <h1>Sample</h1>
+                <div class="col-md-4 mb-4">
+                    <h1>Sample:</h1>
                     <h3>${sample.sampleName} - </h3>
                     <h3>${sample.sampleArtist}</h3>
                     <div id="player"></div>
                 </div>
-                <div class="col-md-2 text-center image-container">
-                    <img src="/img/arrow.png" alt="Arrow Image">
+                <div class="col-md-3 text-center image-container">
+                    <img src="/img/arrow@2x.png" alt="Arrow Image">
                 </div>
                 <div class="col-md-4">
                     <h1>Who Sampled?</h1>
@@ -59,22 +61,36 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <h3>Where to hear it:</h3>
-                    <p>${sample.sampleDescription}</p>
+                    <h1>Where to hear it:</h1>
+                    <div class="sample-description">
+                        <p>${sample.sampleDescription}</p>
+                    </div>
+                    
                 </div>
             </div>
         </div>
         <div class="header">
             <h3>Found by: ${sample.user.userName}</h3>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <a href="/home" class="btn btn-primary">Back to Home</a>
+        <div class="row mb-3">
+            <div class="col-md-12 d-flex flex-row">
+                <a href="/previousSample/${sample.id}" class="btn btn-primary mx-2">Previous</a>
+                <a href="/nextSample/${sample.id}" class="btn btn-primary mx-2">Next</a>
             </div>
+        </div>
+        <c:if test="${sessionScope.user_id ne null && sample.user.id eq sessionScope.user_id}">
+            <div class="row mb-3">
+                <div class="col-md-12 d-flex flex-row">
+                    <a href="/samples/${sample.id}/edit" class="btn btn-primary mx-2">Edit</a>
+                    <a href="/samples/${sample.id}/delete" class="btn btn-danger mx-2">Delete</a>
+                </div>
+            </div>
+        </c:if>
+            <a href="/home" class="btn btn-secondary">Back to Home</a>
         </div>
     </div>
     <!-- Include the YouTube API script -->
-    <script src="https://www.youtube.com/iframe_api"></script>
+    <script src="https://www.youtube.com/iframe_api?api_key=AIzaSyBenzKGIH5McqL1TWMirdlPS21YJqih0mA"></script>
     <!-- Include your custom JavaScript file -->
     <script src="/js/showSample.js"></script>
 

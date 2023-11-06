@@ -9,10 +9,12 @@
     <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/index.css" />
     <title>Edit Sample</title>
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/SNice.svg/800px-SNice.svg.png"
+    type="image/png" >
 </head>
 <body>
     <nav class="navbar navbar-expand-lg">
-        <a class="navbar-brand" href="/home">Sample Hunters</a>
+        <a class="navbar-brand" href="/">Sample Hunters</a>
         <div class="navbar-right" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">

@@ -37,8 +37,6 @@ public class SampleHunterControllers {
 
     @GetMapping("/")
     public String index(Model model){
-        model.addAttribute("newUser", new User());
-        model.addAttribute("newLogin", new LoginUser());
         return "index.jsp";
     }
 
@@ -49,7 +47,7 @@ public class SampleHunterControllers {
 
         if(registeredUser == null){
             model.addAttribute("newLogin", new LoginUser());
-            return "index.jsp";
+            return "login.jsp";
         }
         session.setAttribute("user_id", registeredUser.getId());
         return "redirect:/home";
@@ -63,7 +61,7 @@ public class SampleHunterControllers {
 
         if (loggedInUser == null){
             model.addAttribute("newUser", new User());
-            return "index.jsp";
+            return "login.jsp";
         }
         session.setAttribute("user_id", loggedInUser.getId());
         return "redirect:/home";
@@ -80,7 +78,7 @@ public class SampleHunterControllers {
     public String login(HttpSession session, Model model) {
         model.addAttribute("newLogin", new LoginUser());
         model.addAttribute("newUser", new User());
-        return "index.jsp";
+        return "login.jsp";
     }
 
     //================================================================================================
@@ -130,7 +128,6 @@ public class SampleHunterControllers {
     
         return "redirect:/samples/" + sampleId;
     }
-    
     @GetMapping("/samples/{id}")
     public String showSample(@PathVariable("id") Long id, Model model){
         Sample sample = sampleService.getSingleSample(id);
@@ -153,9 +150,10 @@ public class SampleHunterControllers {
         
         Long userId = (Long) session.getAttribute("user_id");
         User user = userService.findById(userId);
-        sample.setUser(user); 
+        sample.setUser(user);
         sampleService.updateSample(sample);
-        return "redirect:/home";
+        
+        return "redirect:/samples/" + sample.getId();
     }
     
 
@@ -165,5 +163,31 @@ public class SampleHunterControllers {
         return "redirect:/home";
     }
 
+    //stretch
+    @GetMapping("/nextSample/{currentSampleId}")
+    public String scrollToNextSample(@PathVariable("currentSampleId") Long currentSampleId, Model model, HttpSession session) {
+        Sample currentSample = sampleService.getSingleSample(currentSampleId);
+        Sample nextSample = sampleService.getNextSample(currentSample);
+        
+        if (nextSample == null) {
+            return "redirect:/home"; // or show an appropriate message
+        } else {
+            model.addAttribute("sample", nextSample);
+            return "showSample.jsp";
+        }
+    }
     
+    @GetMapping("/previousSample/{currentSampleId}")
+    public String scrollToPreviousSample(@PathVariable("currentSampleId") Long currentSampleId, Model model, HttpSession session) {
+        Sample currentSample = sampleService.getSingleSample(currentSampleId);
+        Sample previousSample = sampleService.getPreviousSample(currentSample);
+    
+        if (previousSample == null) {
+            return "redirect:/home"; // or show an appropriate message
+        } else {
+            model.addAttribute("sample", previousSample);
+            return "showSample.jsp";
+        }
+    }
+
 }

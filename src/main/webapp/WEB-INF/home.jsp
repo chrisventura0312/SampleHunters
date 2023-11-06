@@ -9,10 +9,12 @@
     <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/index.css" />
     <title>Sample Hunters</title>
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/SNice.svg/800px-SNice.svg.png"
+    type="image/png" >
 </head>
 <body>
     <nav class="navbar navbar-expand-lg">
-        <a class="navbar-brand" href="/home">Sample Hunters</a>
+        <a class="navbar-brand" href="/">Sample Hunters</a>
         <div class="navbar-right" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
@@ -45,7 +47,7 @@
         </div>
         <div id="content" class="mt-4">
             <div class="table">
-    <table class="table table-striped">
+    <table class="table">
         <thead>
             <tr>
                 <th>Sample Name</th>
@@ -57,7 +59,7 @@
         <tbody>
             <c:forEach items="${allSamples}" var="sample">
                 <tr>
-                    <td><a href="/samples/${sample.id}">${sample.sampleName}</a></td>
+                    <td><a href="/samples/${sample.id}" class="link-to-sample">${sample.sampleName}</a></td>
                     <td>${sample.sampleArtist}</td>
                     <td>${sample.user.userName}</td>
                     <td>${sample.sampleSourceArtist}</td>

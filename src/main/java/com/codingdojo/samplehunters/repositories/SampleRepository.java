@@ -15,6 +15,8 @@ public interface SampleRepository extends CrudRepository<Sample, Long> {
     List<Sample> findAll();
 
     List<Sample> findByUserId(Long id);
+
+    List<Sample> findAllByOrderByIdAsc();
     
 
 

@@ -2,7 +2,7 @@ var player;
 var sourcePlayer;
 
 function onYouTubeIframeAPIReady() {
-    var youtubeLink = sampleLink; // Access the variable directly
+    var youtubeLink = sampleLink; 
     var videoId = youtubeLink.split('v=')[1];
 
     player = new YT.Player('player', {
@@ -14,7 +14,7 @@ function onYouTubeIframeAPIReady() {
         }
     });
 
-    var sourceYoutubeLink = sampleSourceLink; // Access the variable directly
+    var sourceYoutubeLink = sampleSourceLink; 
     var sourceVideoId = sourceYoutubeLink.split('v=')[1];
 
     sourcePlayer = new YT.Player('sourcePlayer', {
@@ -28,7 +28,9 @@ function onYouTubeIframeAPIReady() {
 }
 
 function onPlayerReady(event) {
+    player.setVolume(25);
 }
 
 function onSourcePlayerReady(event) {
+    sourcePlayer.setVolume(25);
 }
