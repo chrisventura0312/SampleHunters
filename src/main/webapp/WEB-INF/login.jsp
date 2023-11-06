@@ -15,6 +15,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg">
+        <img class="navbar-brand-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/SNice.svg/800px-SNice.svg.png" alt="Sample Hunters Logo">
         <a class="navbar-brand" href="/">Sample Hunters</a>
         <div class="navbar-right" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">

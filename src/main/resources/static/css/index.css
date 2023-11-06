@@ -20,6 +20,12 @@ body {
     font-size: 1.5rem;
 }
 
+.navbar-brand-logo {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
 .nav-item {
     position: relative;
     margin-right: 10px;
