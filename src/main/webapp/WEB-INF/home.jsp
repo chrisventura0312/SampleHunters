@@ -68,8 +68,8 @@
                                 <td>${sample.likesCount}</td>
                                 <c:if test="${sessionScope.user_id ne null && sample.user.id eq sessionScope.user_id}">
                                     <td class="last-column">
-                                        <a href="/samples/${sample.id}/edit" class="edit-button">Edit</a> &nbsp
-                                        <a href="/samples/${sample.id}/delete" class="delete-button">Delete</a>
+                                        <a href="/samples/${sample.id}/edit" class="edit-button">Edit</a> 
+                                        <a href="/samples/${sample.id}/delete" class="delete-button ">Delete</a>
                                     </td>
                                 </c:if>
                             </tr>

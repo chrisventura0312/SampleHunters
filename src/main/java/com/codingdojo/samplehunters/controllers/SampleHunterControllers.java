@@ -79,7 +79,7 @@ public class SampleHunterControllers {
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
-        return "redirect:/";
+        return "redirect:/login";
     }
 
     @GetMapping("/login")
@@ -185,7 +185,7 @@ public class SampleHunterControllers {
     @GetMapping("/samples/{id}/delete")
     public String deleteSample(@PathVariable("id") Long id){
         sampleService.deleteSample(id);
-        return "redirect:/home";
+        return "redirect:/login";
     }
 
     //stretch

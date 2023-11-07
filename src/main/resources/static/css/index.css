@@ -162,7 +162,7 @@ h5 {
 
 .table-container {
     margin-top: 20px;
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
 }
 
@@ -181,15 +181,19 @@ h5 {
 
 .table th, .table td {
     padding: 15px;
-    font-size: 16px;
+    font-size: 15px;
     line-height: 1.5;
-    text-align: left;
+    text-align: center;
     color: white; /* Set text color to white */
 }
 
 .table th {
     background-color: #e68a00; /* Darker shade of orange */
     color: white;
+}
+
+.last-column {
+    width: 200px;
 }
 
 .table tbody tr:nth-child(odd) {

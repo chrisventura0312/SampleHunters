@@ -63,15 +63,17 @@
                         <form:input path="email" type="email" class="form-control" id="email" placeholder="Email" />
                         <form:errors path="email" cssClass="alert alert-danger" element="div" />
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mb-3">
                         <label for="password">Password</label>
-                        <form:input path="password" type="password" class="form-control" id="password" placeholder="Password" />
+                        <input type="password" class="form-control" id="passwordRegister" name="password" placeholder="Password" />
                         <form:errors path="password" cssClass="alert alert-danger" element="div" />
+                        <input type="checkbox" id="showPasswordRegister"> Show Password
                     </div>
                     <div class="form-group">
                         <label for="confirm">Confirm Password</label>
                         <form:input path="confirm" type="password" class="form-control" id="confirm" placeholder="Confirm Password" />
                         <form:errors path="confirm" cssClass="alert alert-danger" element="div" />
+                        <input type="checkbox" id="showConfirmPassword"> Show Password
                     </div>
                     <div class="text-center mt-4">
                         <input type="submit" value="Create Account" class="btn btn-primary" />
@@ -85,13 +87,14 @@
                 <form:form action="/login" modelAttribute="newLogin">
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <form:input path="email" type="email" class="form-control" id="email" placeholder="Email" />
+                        <form:input path="email" type="email" class="form-control" id="emailLogin" placeholder="Email" />
                         <form:errors path="email" cssClass="alert alert-danger" element="div" />
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mb-2">
                         <label for="password">Password</label>
-                        <form:input path="password" type="password" class="form-control" id="password" placeholder="Password" />
+                        <input type="password" class="form-control" id="passwordLogin" name="password" placeholder="Password" />
                         <form:errors path="password" cssClass="alert alert-danger" element="div" />
+                        <input type="checkbox" id="showPasswordLogin"> Show Password
                     </div>
                     <div class="text-center mt-4">
                         <input type="submit" value="Login" class="btn btn-primary" />
@@ -99,6 +102,7 @@
                 </form:form>
             </div>
         </div>
-    </div>
+    </div> 
+    <script src="/js/login.js"></script>
 </body>
 </html>
