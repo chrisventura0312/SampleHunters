@@ -11,12 +11,18 @@ import com.codingdojo.samplehunters.repositories.SampleRepository;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 
+import com.codingdojo.samplehunters.models.Like;
+import com.codingdojo.samplehunters.repositories.LikeRepository;
+
 
 @Service
 public class SampleService {
 
     @Autowired
     private SampleRepository sampleRepo;
+
+    @Autowired
+    private LikeRepository likeRepo;
 
     public List<Sample> getAllSamples() {
         return sampleRepo.findAll();
@@ -79,8 +85,43 @@ public class SampleService {
         if (currentIndex > 0) {
             return allSamples.get(currentIndex - 1);
         } else {
-            return null; // No previous sample found
+            return null; 
         }
     }
+
+    public int getLikesCount(Long sampleId) {
+        Sample sample = sampleRepo.findById(sampleId).orElse(null);
+        if (sample != null) {
+            List<Like> likes = likeRepo.findBySample(sample);
+            return likes.size();
+        }
+        return 0;
+    }
+
+    public int getLikesCount(Sample sample) {
+        if (sample != null) {
+            List<Like> likes = likeRepo.findBySample(sample);
+            return likes.size();
+        }
+        return 0;
+    }
+
+    public boolean hasUserLikedSample(Long userId, Long sampleId) {
+        return likeRepo.existsByUserIdAndSampleId(userId, sampleId);
+    }
+
+    public int updateSampleLikesCount(Long sampleId) {
+        Sample sample = sampleRepo.findById(sampleId).orElse(null);
+        if (sample != null) {
+            List<Like> likes = likeRepo.findBySample(sample);
+            sample.setLikesCount(likes.size());
+            sampleRepo.save(sample);
+            return likes.size();
+        }
+        return 0;
+    }
+    
+
+    
     
 }

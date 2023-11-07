@@ -1,6 +1,8 @@
 package com.codingdojo.samplehunters.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
 
 import java.util.List;
 
@@ -21,10 +24,12 @@ import com.codingdojo.samplehunters.repositories.UserRepository;
 //models
 import com.codingdojo.samplehunters.models.Sample;
 import com.codingdojo.samplehunters.models.User;
+import com.codingdojo.samplehunters.models.Like;
 import com.codingdojo.samplehunters.models.LoginUser;
 //services
 import com.codingdojo.samplehunters.services.SampleService;
 import com.codingdojo.samplehunters.services.UserService;
+import com.codingdojo.samplehunters.services.LikeService;
 
 @Controller
 public class SampleHunterControllers {
@@ -34,6 +39,9 @@ public class SampleHunterControllers {
 
     @Autowired
     private SampleService sampleService;
+
+    @Autowired
+    private LikeService likeService;
 
     @GetMapping("/")
     public String index(Model model){
@@ -93,10 +101,17 @@ public class SampleHunterControllers {
         }
     
         List<Sample> allSamples = sampleService.getAllSamples();
+    
+        for (Sample sample : allSamples) {
+            int likesCount = sampleService.getLikesCount(sample.getId());
+            sample.setLikesCount(likesCount);
+        }
+    
         model.addAttribute("allSamples", allSamples);
     
-        return "home.jsp"; 
+        return "home.jsp";
     }
+    
 
     @GetMapping("/addSample")
     public String addSample(HttpSession session, Model model) {
@@ -128,10 +143,20 @@ public class SampleHunterControllers {
     
         return "redirect:/samples/" + sampleId;
     }
+
+
     @GetMapping("/samples/{id}")
-    public String showSample(@PathVariable("id") Long id, Model model){
+    public String showSample(@PathVariable("id") Long id, Model model, HttpSession session) {
         Sample sample = sampleService.getSingleSample(id);
+        
+        if (session.getAttribute("user_id") != null) {
+            Long userId = (Long) session.getAttribute("user_id");
+            boolean hasUserLikedSample = likeService.hasUserLikedSample(userId, id);
+            model.addAttribute("hasUserLikedSample", hasUserLikedSample);
+        }
+        int likesCount = sampleService.getLikesCount(id);
         model.addAttribute("sample", sample);
+        model.addAttribute("likesCount", likesCount);
         return "showSample.jsp";
     }
 
@@ -188,6 +213,17 @@ public class SampleHunterControllers {
             model.addAttribute("sample", previousSample);
             return "showSample.jsp";
         }
+    }
+
+    @PostMapping("/like/{sampleId}")
+    public String likeSample(@PathVariable("sampleId") Long sampleId, HttpSession session) {
+        if (session.getAttribute("user_id") == null) {
+            return "redirect:/login";
+        }
+        Long userId = (Long) session.getAttribute("user_id");
+        likeService.likeSample(sampleId, userId);
+        sampleService.updateSampleLikesCount(sampleId);
+        return "redirect:/samples/" + sampleId;
     }
 
 }

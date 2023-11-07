@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/index.css" />
-    <title>Welcome to Sample Tracker - Sample Hunters</title>
+    <title>Welcome to Sample Hunters!</title>
     <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/SNice.svg/800px-SNice.svg.png" type="image/png">
 </head>
 <body>
@@ -38,7 +38,7 @@
     </nav>
     <div class="container">
         <div class="header">
-            <h1>Welcome to our Sample Tracker</h1>
+            <h1>Welcome to Sample Hunters!</h1>
         </div>
         <div class="form-container">
             <div class="form left">

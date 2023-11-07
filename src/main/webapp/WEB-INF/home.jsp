@@ -48,32 +48,34 @@
         </div>
         <div id="content" class="mt-4">
             <div class="table">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Sample Name</th>
-                <th>Sample Artist</th>
-                <th>Found by:</th>
-                <th>Who Sampled?</th>
-            </tr>
-        </thead>
-        <tbody>
-            <c:forEach items="${allSamples}" var="sample">
-                <tr>
-                    <td><a href="/samples/${sample.id}" class="link-to-sample">${sample.sampleName}</a></td>
-                    <td>${sample.sampleArtist}</td>
-                    <td>${sample.user.userName}</td>
-                    <td>${sample.sampleSourceArtist}</td>
-                    <c:if test="${sessionScope.user_id ne null && sample.user.id eq sessionScope.user_id}">
-                        <td class="last-column">
-                            <a href="/samples/${sample.id}/edit" class="edit-button">Edit</a> &nbsp
-                            <a href="/samples/${sample.id}/delete" class="delete-button">Delete</a>
-                        </td>
-                    </c:if>
-                </tr>
-            </c:forEach>
-        </tbody>
-    </table>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Sample Name</th>
+                            <th>Sample Artist</th>
+                            <th>Found by:</th>
+                            <th>Who Sampled?</th>
+                            <th>Likes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach items="${allSamples}" var="sample">
+                            <tr>
+                                <td><a href="/samples/${sample.id}" class="link-to-sample">${sample.sampleName}</a></td>
+                                <td>${sample.sampleArtist}</td>
+                                <td>${sample.user.userName}</td>
+                                <td>${sample.sampleSourceArtist}</td>
+                                <td>${sample.likesCount}</td>
+                                <c:if test="${sessionScope.user_id ne null && sample.user.id eq sessionScope.user_id}">
+                                    <td class="last-column">
+                                        <a href="/samples/${sample.id}/edit" class="edit-button">Edit</a> &nbsp
+                                        <a href="/samples/${sample.id}/delete" class="delete-button">Delete</a>
+                                    </td>
+                                </c:if>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

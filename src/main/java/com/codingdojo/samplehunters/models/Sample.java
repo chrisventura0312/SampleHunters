@@ -2,19 +2,11 @@ package com.codingdojo.samplehunters.models;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
-import jakarta.persistence.FetchType;
+import jakarta.persistence.*;
+
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 //Validation
@@ -78,10 +70,20 @@ public class Sample {
     @JoinColumn(name = "users_id")
     private User user;
     
+    @OneToMany(mappedBy = "sample", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Like> likes;
+
+    @Column(name = "likes")
+    private int likesCount = 0;
+
+
+
+
 
 
     //constructor
     public Sample() {
+        this.likesCount = 0;
     }
 
     //getters and setters
@@ -122,6 +124,14 @@ public class Sample {
         return user;
     }
 
+    public List<Like> getLikes() {
+        return likes;
+    }
+
+    public int getLikesCount() {
+        return likesCount;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -158,6 +168,16 @@ public class Sample {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public void setLikes(List<Like> likes) {
+        this.likes = likes;
+    }
+
+    public void setLikesCount(int likesCount) {
+        this.likesCount = likesCount;
+    }
+
+
 
     @PreUpdate
     protected void onUpdate() {

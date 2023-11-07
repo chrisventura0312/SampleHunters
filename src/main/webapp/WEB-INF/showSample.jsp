@@ -76,6 +76,21 @@
         <div class="row mb-3">
             <div class="col-md-12 d-flex flex-row">
                 <a href="/previousSample/${sample.id}" class="btn btn-primary mx-2">Previous</a>
+                <c:if test="${sessionScope.user_id ne null}">
+                    <c:choose>
+                        <c:when test="${hasUserLikedSample}">
+                            <button class="btn btn-success mx-2" disabled>Liked ${sample.likesCount}</button>
+                        </c:when>
+                        <c:otherwise>
+                            <form action="/like/${sample.id}" method="post">
+                                <button type="submit" class="btn btn-success mx-2">Like ${sample.likesCount}</button>
+                            </form>
+                        </c:otherwise>
+                    </c:choose>
+                </c:if>
+                <c:if test="${sessionScope.user_id eq null}">
+                    <button class="btn btn-success mx-2" disabled>Like ${sample.likesCount}</button>
+                </c:if>
                 <a href="/nextSample/${sample.id}" class="btn btn-primary mx-2">Next</a>
             </div>
         </div>
