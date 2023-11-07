@@ -195,9 +195,11 @@ public class SampleHunterControllers {
         Sample nextSample = sampleService.getNextSample(currentSample);
         
         if (nextSample == null) {
-            return "redirect:/home"; // or show an appropriate message
+            return "redirect:/home"; 
         } else {
             model.addAttribute("sample", nextSample);
+            model.addAttribute("likesCount", sampleService.getLikesCount(nextSample.getId()));
+            model.addAttribute("hasUserLikedSample", likeService.hasUserLikedSample((Long) session.getAttribute("user_id"), nextSample.getId()));
             return "showSample.jsp";
         }
     }
@@ -208,9 +210,11 @@ public class SampleHunterControllers {
         Sample previousSample = sampleService.getPreviousSample(currentSample);
     
         if (previousSample == null) {
-            return "redirect:/home"; // or show an appropriate message
+            return "redirect:/home"; 
         } else {
             model.addAttribute("sample", previousSample);
+            model.addAttribute("likesCount", sampleService.getLikesCount(previousSample.getId()));
+            model.addAttribute("hasUserLikedSample", likeService.hasUserLikedSample((Long) session.getAttribute("user_id"), previousSample.getId()));
             return "showSample.jsp";
         }
     }
